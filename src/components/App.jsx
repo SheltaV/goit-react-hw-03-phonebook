@@ -12,6 +12,18 @@ export class App extends Component {
     filter: ''
   }
 
+  componentDidUpdate() {
+    localStorage.setItem('contact-item', JSON.stringify(this.state.contacts))
+  }
+
+  componentDidMount() {
+    const contactItem = localStorage.getItem('contact-item')
+    if (contactItem !== null) {
+      this.setState({contacts: JSON.parse(contactItem)})
+    }
+    
+  }
+
   addNewContact = newContact => {
     const findName = this.state.contacts.map(find => find.name)
     if (findName.includes(newContact.name)) {
